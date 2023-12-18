@@ -37,6 +37,7 @@ proc create_target {} {
 
         # Build the project
         puts "--- Building project"
+        build_proj
         
         wait_on_run impl_1
 
