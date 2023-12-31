@@ -1,9 +1,6 @@
-global proj_dict
-source -notrace ./script/proj_gen.tcl
+source -notrace ../script/proj_gen.tcl
 
 proc create_target {} {
-        global proj_dict
-
         # Get the current time as a Unix timestamp
         set currentTime [clock seconds]
 
@@ -12,37 +9,37 @@ proc create_target {} {
 
         set proj_name "kria_led_from_pl_example${formattedTime}_"
         
-        set origin_dir "./led_from_pl"
+        set origin_dir "."
         
         # Set project info
-        set_proj_info                                    \
+        ::proj::set_proj_info                            \
             -force                                       \
             -part "xck26-sfvc784-2LV-c"                  \
             -board_part "xilinx.com:kv260_som:part0:1.4" \
             -addr "$origin_dir"                          \
             -name "$proj_name"
 
-        generate_project
+        ::proj::generate_project
 
         # Add source files
-        create_src_filesets $origin_dir
+        ::proj::create_src_filesets -base_folder $origin_dir
         
         # Set top module
         set HDL_TOP_MODULE_NAME "kv260_top"
-        set_top_wrapper $HDL_TOP_MODULE_NAME
+        ::proj::set_top_wrapper -file_name $HDL_TOP_MODULE_NAME
 
         # Add constraint files
-        create_constr_filesets $origin_dir
+        ::proj::create_constr_filesets -base_folder $origin_dir
         update_compile_order -fileset sources_1
 
         # Build the project
         puts "--- Building project"
-        build_proj
+        ::proj::build_proj
         
         wait_on_run impl_1
 
         puts "--- Export bitstream"
-        set xil_proj [get_project_name]
-        export_proj_bitstream "$origin_dir/build/export_${xil_proj}"
+        set xil_proj [::proj::get_project_name]
+        ::proj::export_proj_bitstream -destination "$origin_dir/build/export_${xil_proj}"
         
     }

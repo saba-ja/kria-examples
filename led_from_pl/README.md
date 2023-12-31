@@ -1,0 +1,1 @@
+Example design to blink an external led from PL only. 
