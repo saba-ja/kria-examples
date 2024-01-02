@@ -15,7 +15,7 @@ proc create_target {} {
         ::proj::set_proj_info                            \
             -force                                       \
             -part "xck26-sfvc784-2LV-c"                  \
-            -board_part "xilinx.com:kv260_som:part0:1.4" \
+            -board_part "xilinx.com:kr260_som:part0:1.1" \
             -addr "$origin_dir"                          \
             -name "$proj_name"
 
