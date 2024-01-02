@@ -4,3 +4,10 @@ build/*
 *.jou
 vivado_*
 *.log
+**/sw/*
+!**/sw/proj_app
+**/sw/proj_app/*
+!**/sw/proj_app/src
+!**/sw/proj_gen.tcl
+!**/sw/proj_run.tcl
+
